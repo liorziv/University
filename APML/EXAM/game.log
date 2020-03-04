@@ -1,0 +1,78 @@
+0::0:0:0	1	STATUS	No model loaded, initializing new learner instance...
+0::0:0:0	2	STATUS	No model loaded, initializing new learner instance...
+0::0:0:0	1	STATUS	Init Finished
+0::0:0:0	2	STATUS	Init Finished
+0::0:0:17	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:17	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:17	1	ERROR	No Response: player took too long to respond with action. This is No Response #2 in a row!1
+0::0:0:17	2	ERROR	No Response: player took too long to respond with action. This is No Response #2 in a row!2
+0::0:0:17	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:18	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:18	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:18	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:18	1	ERROR	No Response: player took too long to respond with action. This is No Response #2 in a row!1
+0::0:0:18	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:18	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:18	1	ERROR	No Response: player took too long to respond with action. This is No Response #2 in a row!1
+0::0:0:18	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:18	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:18	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:18	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:18	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:18	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:18	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:18	1	ERROR	No Response: player took too long to respond with action. This is No Response #2 in a row!1
+0::0:0:18	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:18	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:18	2	ERROR	Illegal Move: a random legal move was selected instead. Player tried action 5
+0::0:0:18	1	ERROR	Illegal Move: a random legal move was selected instead. Player tried action 5
+0::0:0:18	2	ERROR	Illegal Move: a random legal move was selected instead. Player tried action 4
+0::0:0:18	1	ERROR	Illegal Move: a random legal move was selected instead. Player tried action 4
+0::0:0:18	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:18	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:19	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:19	2	ERROR	Illegal Move: a random legal move was selected instead. Player tried action 0
+0::0:0:19	1	ERROR	Illegal Move: a random legal move was selected instead. Player tried action 2
+0::0:0:19	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:19	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:19	1	ERROR	No Response: player took too long to respond with action. This is No Response #2 in a row!1
+0::0:0:19	1	ERROR	No Response: player took too long to respond with action. This is No Response #3 in a row!1
+0::0:0:19	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:19	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:19	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:19	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:19	2	ERROR	Illegal Move: a random legal move was selected instead. Player tried action 3
+0::0:0:19	1	ERROR	Illegal Move: a random legal move was selected instead. Player tried action 3
+0::0:0:19	2	ERROR	Illegal Move: a random legal move was selected instead. Player tried action 4
+0::0:0:19	1	ERROR	Illegal Move: a random legal move was selected instead. Player tried action 4
+0::0:0:19	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:19	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:19	1	ERROR	No Response: player took too long to respond with action. This is No Response #2 in a row!1
+0::0:0:19	2	ERROR	No Response: player took too long to respond with action. This is No Response #2 in a row!2
+0::0:0:20	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:20	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:20	1	ERROR	No Response: player took too long to respond with action. This is No Response #2 in a row!1
+0::0:0:20	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:20	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:20	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:20	1	ERROR	No Response: player took too long to respond with action. This is No Response #2 in a row!1
+0::0:0:20	2	ERROR	No Response: player took too long to respond with action. This is No Response #2 in a row!2
+0::0:0:20	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:20	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:20	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:20	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:20	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:20	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:20	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:20	1	ERROR	No Response: player took too long to respond with action. This is No Response #2 in a row!1
+0::0:0:20	2	ERROR	No Response: player took too long to respond with action. This is No Response #2 in a row!2
+0::0:0:20	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:20	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
+0::0:0:20	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:20	2	ERROR	No Response: player took too long to respond with action. This is No Response #2 in a row!2
+0::0:0:20	1	ERROR	No Response: player took too long to respond with action. This is No Response #2 in a row!1
+0::0:0:21	2	ERROR	Illegal Move: a random legal move was selected instead. Player tried action 0
+0::0:0:21	1	ERROR	Illegal Move: a random legal move was selected instead. Player tried action 0
+0::0:0:21	1	ERROR	Illegal Move: a random legal move was selected instead. Player tried action 0
+0::0:0:21	1	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!1
+0::0:0:21	2	ERROR	No Response: player took too long to respond with action. This is No Response #1 in a row!2
