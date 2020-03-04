@@ -1,0 +1,1676 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+Lior Ziv 305742611
+\end_layout
+
+\begin_layout Section*
+Parsimony
+\end_layout
+
+\begin_layout Enumerate
+In the Parsimony model the best tree is the tree with minimum changes.
+ At class we built a score function which is actually a loss function, defining
+ matrix M(MSA matrix) with n rows(number of sequences) and L columns (L
+ is the max of sequences lengths M in our case) .Denoting the 
+\begin_inset Formula $A_{i}$
+\end_inset
+
+ as the i'th column of M, hence M = [
+\begin_inset Formula $A_{1},$
+\end_inset
+
+...
+\begin_inset Formula $A_{L}]$
+\end_inset
+
+ 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+Score(M) = 
+\begin_inset Formula $\stackrel[i=1]{L}{\Sigma}$
+\end_inset
+
+Score(
+\begin_inset Formula $A_{i})$
+\end_inset
+
+ (we explained in class how a this matrix can be build).
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Now we can define the optimization problem as :
+\end_layout
+
+\begin_layout Itemize
+Parsimony(M,T) = 
+\begin_inset Formula $\stackrel[k]{}{\Sigma}Parsimony$
+\end_inset
+
+
+\begin_inset Formula $(A_{k},T)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $Parsimony$
+\end_inset
+
+
+\begin_inset Formula $(A_{k},T)$
+\end_inset
+
+ = min
+\begin_inset Formula $A_{k}^{N+1}...A_{k}^{2N-1}$
+\end_inset
+
+(placement for the internal nodes)(
+\begin_inset Formula $\Sigma_{(i,j)\in T}1\{A_{i}^{j}\neq A_{i}^{i}$
+\end_inset
+
+})
+\end_layout
+
+\begin_layout Standard
+This Parsimony loss function uses the minimum necessary changes by choosing
+ an assignment for the inner leaves that minimizes the total changes between
+ adjacent nodes.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+\bar under
+Parsimony Algorithm 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Start from node r
+\end_layout
+
+\begin_layout Enumerate
+Go over the tree - post order
+\end_layout
+
+\begin_layout Enumerate
+If j is leaf 
+\begin_inset Formula $S_{j}[a]$
+\end_inset
+
+= 
+\begin_inset Formula $\left\{ \begin{array}{ccccc}
+0 &  & A_{j}=a\\
+\\
+\infty &  & else
+\end{array}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Else we need to compute 
+\begin_inset Formula $S_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $S_{k}$
+\end_inset
+
+ the daughter nodes i,k of j :
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+S
+\begin_inset Formula $_{j}[a]$
+\end_inset
+
+= min
+\begin_inset Formula $_{b,c}[S_{k}[b]$
+\end_inset
+
++ 
+\begin_inset Formula $S_{l}[c]$
+\end_inset
+
++1{a
+\begin_inset Formula $\neq b\}$
+\end_inset
+
++ 1{a
+\begin_inset Formula $\neq c\}]$
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+-Adds 1 if there were changes between sequences
+\end_layout
+
+\begin_layout Standard
+-Also since k,l are independent for a given a we get that the above statement
+ equals 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+min
+\begin_inset Formula $_{c}[S[c]$
+\end_inset
+
++ 1{a
+\begin_inset Formula $\neq c\}]$
+\end_inset
+
+ 
+\begin_inset Formula $+$
+\end_inset
+
+min
+\begin_inset Formula $_{b}[S[b]+$
+\end_inset
+
+ 1{a
+\begin_inset Formula $\neq b\}]$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+Finally for r,j
+\begin_inset Formula $\in Neighbor(r)$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Minimal cost of tree = min
+\begin_inset Formula $_{a,b}$
+\end_inset
+
+[S
+\begin_inset Formula $_{r}[a]$
+\end_inset
+
+ + 
+\begin_inset Formula $S_{j}[b]$
+\end_inset
+
+ + 1{a
+\begin_inset Formula $\neq b\}]$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+
+\series bold
+\bar under
+RunTime
+\series default
+\bar default
+ - time to fill each cell is O(||
+\begin_inset Formula $\Sigma||)$
+\end_inset
+
+ , the amount of cells to fill is ||
+\begin_inset Formula $\Sigma||$
+\end_inset
+
+
+\begin_inset Formula $\cdot O(n)$
+\end_inset
+
+, number of sequences n, width of alignment is M (no gaps) .
+ We get a total of O(M
+\begin_inset Formula $\cdot n$
+\end_inset
+
+
+\begin_inset Formula $\cdot||\Sigma||$
+\end_inset
+
+
+\begin_inset Formula $^{2})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\bar under
+Space Complexity 
+\series default
+\bar default
+- We get an ||
+\begin_inset Formula $\Sigma||$
+\end_inset
+
+
+\begin_inset Formula $\cdot O(n)$
+\end_inset
+
+ matrix 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+
+\begin_inset Formula $O($
+\end_inset
+
+ ||
+\begin_inset Formula $\Sigma||$
+\end_inset
+
+
+\begin_inset Formula $\cdot O(n))$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\color white
+d
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+In order to modify the algorithm I will add edge weights for every transition
+ according to S(a,b) so now instead of adding 1 to the penalty sum, I will
+ add S(a,b) 
+\end_layout
+
+\begin_layout Itemize
+In order to retrieve the internal nodes with the minimal penalty I will
+ save two pointers for each internal node, one for each daughter node, 
+\begin_inset Formula $l_{k}(a)$
+\end_inset
+
+/ 
+\begin_inset Formula $r_{k}(a)$
+\end_inset
+
+ - left/right pointer for the k'th node
+\end_layout
+
+\begin_layout Enumerate
+Start from node r
+\end_layout
+
+\begin_layout Enumerate
+Go over the tree - post order
+\end_layout
+
+\begin_layout Enumerate
+If j is leaf 
+\begin_inset Formula $S_{j}[a]$
+\end_inset
+
+= 
+\begin_inset Formula $\left\{ \begin{array}{ccccc}
+0 &  & A_{j}=a\\
+\\
+\infty &  & else
+\end{array}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Else we need to compute 
+\begin_inset Formula $S_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $S_{k}$
+\end_inset
+
+ the daughter nodes i,k of j :
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+S
+\begin_inset Formula $_{j}[a]$
+\end_inset
+
+= min
+\begin_inset Formula $_{b,c}[S_{k}[b]$
+\end_inset
+
++ 
+\begin_inset Formula $S_{l}[c]$
+\end_inset
+
+
+\series bold
++ S(a,b){a
+\begin_inset Formula $\boldsymbol{\neq}\boldsymbol{b\}}$
+\end_inset
+
++ S(a,c){a
+\begin_inset Formula $\boldsymbol{\boldsymbol{\neq c}\}}]$
+\end_inset
+
+
+\series default
+
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+min
+\begin_inset Formula $_{c}[S[c]$
+\end_inset
+
++ 
+\series bold
+S(a,c){a
+\begin_inset Formula $\boldsymbol{\neq c\}}]$
+\end_inset
+
+
+\series default
+ 
+\begin_inset Formula $+$
+\end_inset
+
+min
+\begin_inset Formula $_{b}[S[b]+$
+\end_inset
+
+ 
+\series bold
+S(a,b){a
+\series default
+
+\begin_inset Formula $\boldsymbol{\neq b\}}]$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Set 
+\begin_inset Formula $l_{k}(a)$
+\end_inset
+
+= argmin
+\begin_inset Formula $_{b}(S_{i}(b)$
+\end_inset
+
++ S(a,b)) and 
+\series default
+
+\begin_inset Formula $r_{k}(a)$
+\end_inset
+
+
+\series bold
+= argmin
+\begin_inset Formula $_{b}(s_{j}(b)$
+\end_inset
+
++S(a,b))
+\end_layout
+
+\begin_layout Enumerate
+Finally we got to the root, take 
+\begin_inset Formula $l_{_{2N-1}}$
+\end_inset
+
+(a), 
+\begin_inset Formula $r_{_{2N-1}}(a)$
+\end_inset
+
+ and we can start to traceback the entire internal tree.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+I will suggest a new function f = -2
+\begin_inset Formula $^{L_{i,j}}$
+\end_inset
+
+{a
+\begin_inset Formula $\neq b\}$
+\end_inset
+
+, which obviously gives a larger value to smaller distances, and smaller
+ to bigger distance.
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+The function will be added instead of indicator function given in the 1.1(1{a
+\begin_inset Formula $\neq b\}$
+\end_inset
+
+).
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+\bar under
+sources
+\series default
+\bar default
+ - 
+\end_layout
+
+\begin_layout Itemize
+http://moodle2.cs.huji.ac.il/nu16/pluginfile.php/377947/mod_resource/content/1/Lectur
+e%2017%20-%20David%20Ariel.pdf -David scribe
+\end_layout
+
+\begin_layout Itemize
+http://moodle2.cs.huji.ac.il/nu15/pluginfile.php/224934/course/section/39705/msa.pdf
+ - Scribe from 2015
+\end_layout
+
+\begin_layout Itemize
+page 174- 175 course book.
+\end_layout
+
+\begin_layout Itemize
+http://moodle2.cs.huji.ac.il/nu16/pluginfile.php/383497/mod_resource/content/1/Lectur
+e%2015%20-%20Michal%20Bazir.pdf -Michal Scribe
+\end_layout
+
+\begin_deeper
+\begin_layout Section*
+Segmentation
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+First I will define the probability of each 
+\begin_inset Formula $\theta_{i}$
+\end_inset
+
+ given it's size (
+\begin_inset Formula $n_{i+1}-$
+\end_inset
+
+n
+\begin_inset Formula $_{i})$
+\end_inset
+
+ , I will set (#G+C)
+\begin_inset Formula $_{i}$
+\end_inset
+
+ = sum of appearance of G and C in the i'th segment.
+ P(
+\begin_inset Formula $\theta_{i})$
+\end_inset
+
+ = 
+\begin_inset Formula $(\frac{\theta_{i}}{2})^{(\#G+C)_{i}}\cdot(\frac{1-\theta_{i}}{2})^{(n_{i+1}-n_{i}-(\#G+C)_{i})}$
+\end_inset
+
+ .
+ By this definition we get that the maximum likelihood is L(
+\begin_inset Formula $\theta_{i})$
+\end_inset
+
+ = 
+\begin_inset Formula $\stackrel[i=0]{k}{\prod}$
+\end_inset
+
+P(
+\begin_inset Formula $\theta_{i})$
+\end_inset
+
+ = 
+\begin_inset Formula $\stackrel[i=0]{k-1}{\prod}$
+\end_inset
+
+
+\begin_inset Formula $(\frac{\theta_{i}}{2})^{(\#G+C)_{i}}\cdot(\frac{1-\theta_{i}}{2})^{(n_{i+1}-n_{i}-(\#G+C)_{i})}$
+\end_inset
+
+ , from this we can deduce the sufficient statistics is the 
+\begin_inset Formula $(\#G+C)_{i}$
+\end_inset
+
+, and the size of each segment 
+\begin_inset Formula $(n_{i+1}-n_{i}$
+\end_inset
+
+).
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Now we need to derive and compare to zero in order to get the MLE.
+ 
+\end_layout
+
+\begin_layout Standard
+First I will apply log in order to derive more easily, LL(
+\begin_inset Formula $\theta_{i})$
+\end_inset
+
+ = log(
+\begin_inset Formula $\stackrel[i=0]{k-1}{\prod}$
+\end_inset
+
+
+\begin_inset Formula $(\frac{\theta_{i}}{2})^{(\#G+C)_{i}}\cdot(\frac{1-\theta_{i}}{2})^{(n_{i+1}-n_{i}-(\#G+C)_{i})}$
+\end_inset
+
+ ) 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+
+\begin_inset Formula $\stackrel[i=0]{k-1}{\Sigma}$
+\end_inset
+
+
+\begin_inset Formula $(\#G+C)_{i}\cdot log(\frac{\theta_{i}}{2})+(n_{i+1}-n_{i}-(\#G+C)_{i})log(\frac{1-\theta_{i}}{2})$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+in order to find specific 
+\begin_inset Formula $\theta_{i}$
+\end_inset
+
+ i will set all the rest to constants
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $(\#G+C)_{i}\cdot\frac{1}{\theta_{i}}+(n_{i+1}-n_{i}-(\#G+C)_{i})(-\frac{1}{1-\theta_{i}})$
+\end_inset
+
+ = 0 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+
+\begin_inset Formula $(\#G+C)_{i}\cdot(1-\theta_{i})$
+\end_inset
+
+ - 
+\begin_inset Formula $((n_{i+1}-n_{i})-(\#G+C)_{i})(\theta_{i})$
+\end_inset
+
+ = 0 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+
+\begin_inset Formula $(\#G+C)_{i}$
+\end_inset
+
+ – 
+\begin_inset Formula $\theta_{i}(n_{i+1}-n_{i})$
+\end_inset
+
+ = 0 
+\begin_inset Formula $\rightarrow\text{\theta\ensuremath{_{i}=}}$
+\end_inset
+
+
+\begin_inset Formula $\frac{(\#G+C)_{i}}{n_{i+1}-n_{i}}$
+\end_inset
+
+=
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+
+\begin_inset Formula $\boldsymbol{\theta}\ensuremath{\boldsymbol{_{i}}=}$
+\end_inset
+
+
+\begin_inset Formula $\frac{(\#G+C)_{i}}{n_{i+1}-n_{i}}$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+\bar under
+Definition of the problem 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Given N data points D = {x
+\begin_inset Formula $_{1},$
+\end_inset
+
+...x
+\begin_inset Formula $_{N}\}$
+\end_inset
+
+, I will define 
+\begin_inset Formula $s_{j}=$
+\end_inset
+
+(b
+\begin_inset Formula $_{j}$
+\end_inset
+
+
+\begin_inset Formula $,$
+\end_inset
+
+
+\begin_inset Formula $e_{j})$
+\end_inset
+
+ - segment (1
+\begin_inset Formula $\leq j$
+\end_inset
+
+
+\begin_inset Formula $\leq k)$
+\end_inset
+
+.
+ In order to fit the sequence optimally into k segments I will divide it
+ according to 
+\begin_inset Formula $\overline{s_{j}}$
+\end_inset
+
+ which hold the percentage of GC in the segment.
+ The quality of the fit is evaluated by minimizing the total fit error :
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\overline{s}_{j}$
+\end_inset
+
+ = 
+\begin_inset Formula $\frac{(\#G+C)_{i}}{e_{j}-b_{j}}$
+\end_inset
+
+ = 
+\begin_inset Formula $\stackrel[i=b_{j}]{e_{j}}{\Sigma}\frac{1_{(x_{i}=G\slash C)}}{e_{j}-b_{j}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Total Error - E
+\begin_inset Formula $_{s}=$
+\end_inset
+
+
+\begin_inset Formula $\stackrel[i=]{N}{\Sigma(x_{i}-}\overline{x}_{i})^{2}$
+\end_inset
+
+ s.t 
+\begin_inset Formula $\overline{x}_{i}$
+\end_inset
+
+= 
+\begin_inset Formula $\overline{s}_{j}$
+\end_inset
+
+ for (b
+\begin_inset Formula $_{j}$
+\end_inset
+
+
+\begin_inset Formula $\leq j$
+\end_inset
+
+
+\begin_inset Formula $\leq e_{j})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\bar under
+How to fill the table
+\bar default
+ -
+\series default
+ lets define the structure, we will take k' s.t (1
+\begin_inset Formula $\leq k'$
+\end_inset
+
+
+\begin_inset Formula $\leq k)$
+\end_inset
+
+ the notation E
+\begin_inset Formula $_{s}$
+\end_inset
+
+[i,k′] represent the segmentation error over the data points {x
+\begin_inset Formula $_{1}$
+\end_inset
+
+…,x
+\begin_inset Formula $_{i}$
+\end_inset
+
+} using k′-1 segments, and let E[i,j] be the error in representing the points
+ {x
+\begin_inset Formula $_{i},$
+\end_inset
+
+…,x
+\begin_inset Formula $_{j}$
+\end_inset
+
+} using just the mean of the data(one segment).
+\end_layout
+
+\begin_layout Standard
+In order to solve the problem we will work according to the next pseudo
+ code:
+\end_layout
+
+\begin_layout Itemize
+Initiation - initialize an empty table T(all zeros) size - n
+\begin_inset Formula $\times$
+\end_inset
+
+k 
+\end_layout
+
+\begin_layout Itemize
+k' = 1 fill in T[:,1] = E
+\begin_inset Formula $_{s}$
+\end_inset
+
+ s.t |s
+\begin_inset Formula $_{i}|$
+\end_inset
+
+
+\begin_inset Formula $\in\{1,2,...n\}$
+\end_inset
+
+ (fill each cell j with as the segment 
+\begin_inset Formula $E_{s}($
+\end_inset
+
+1:j)
+\end_layout
+
+\begin_layout Itemize
+update rule - k' >1 T[i,k']= 
+\begin_inset Formula $\underset{1\text{≤}j\text{≤}i}{min}$
+\end_inset
+
+(E
+\begin_inset Formula $_{s}$
+\end_inset
+
+[j−1,k′−1]))+E[i,end]) 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+meaning the minimal possible way to select k'-1 segments up the the i'th
+ letter, plus adding a tail of error for the rest of the sequence ( total
+ of k' segments) 
+\end_layout
+
+\begin_layout Itemize
+The best fit segmentation score will be at the most right bottom of the
+ table.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+
+\series bold
+\bar under
+Prove of correctness 
+\end_layout
+
+\begin_layout Itemize
+By induction :
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Base :
+\series default
+ For k' = 1 trivial since we need to have only one segment (obviously the
+ best fit) the last cell will have the total segment E
+\begin_inset Formula $_{s}$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Inductive step: 
+\series default
+Now we can assume that the statement is correct for k' 
+\begin_inset Formula $\leq$
+\end_inset
+
+ k-1 segments and prove for k' = k 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+If we look at separation into k sequences(last col) T[k,:] 
+\begin_inset Formula $,$
+\end_inset
+
+ lets assume we don't get to optimal solution for a specific T[k,j] (1
+\begin_inset Formula $\leq j$
+\end_inset
+
+
+\begin_inset Formula $\leq n)$
+\end_inset
+
+.
+ By our rule of update we get that the sum of our variables is not minimal-
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\underset{1\text{≤}j\text{≤}i}{min}$
+\end_inset
+
+(E
+\begin_inset Formula $_{s}$
+\end_inset
+
+[j−1,k′−1]))+E[i,end]) (1
+\begin_inset Formula $\leq j$
+\end_inset
+
+
+\begin_inset Formula $\leq n)$
+\end_inset
+
+ defined as the minimal - we get a contradiction since if there is a better
+ fit which gives a smaller err our update rule will choose that segmentation.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+(I know i'ts not the best solution but I run out of time)
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+\bar under
+RunTime
+\bar default
+ - 
+\series default
+as we can see we have :
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Table size n
+\begin_inset Formula $\cdot k$
+\end_inset
+
+ we fill
+\end_layout
+
+\begin_layout Itemize
+Each cell takes n
+\begin_inset Formula $\cdot n$
+\end_inset
+
+ , for every k segments we have to take the min(n options) on and the sum
+ for each option(O(n)) 
+\end_layout
+
+\begin_layout Itemize
+Therefore the total runtime is O(n
+\begin_inset Formula $^{3}\cdot k)$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+The distribution 
+\begin_inset Formula $\underline{N}(\phi_{i},s)$
+\end_inset
+
+ has a probability function 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ P(x
+\begin_inset Formula $_{i}$
+\end_inset
+
+:
+\begin_inset Formula $\phi_{i},s)$
+\end_inset
+
+ =
+\begin_inset Formula $\frac{1}{\sigma\sqrt{2\pi}}e$
+\end_inset
+
+
+\begin_inset Formula $^{\frac{-(x_{i}-\phi_{i})^{2}}{2s^{2}}}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Now we can define the likelihood function 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+  
+\begin_inset Formula $\stackrel[i=1]{k}{\prod}$
+\end_inset
+
+
+\begin_inset Formula $\stackrel[j=1]{n}{\prod}$
+\end_inset
+
+P(
+\begin_inset Formula $\phi_{i})$
+\end_inset
+
+ = 
+\begin_inset Formula $\stackrel[i=1]{k}{\prod}\text{\stackrel[j=1]{n}{\prod}}$
+\end_inset
+
+
+\begin_inset Formula $\frac{1}{s\sqrt{2\pi}}e$
+\end_inset
+
+
+\begin_inset Formula $^{\frac{-(x_{j}-\phi_{i})^{2}}{2s^{2}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Next for getting the MLE, I will apply log on L(
+\begin_inset Formula $\Phi)$
+\end_inset
+
+ , derive LL according to 
+\begin_inset Formula $\phi_{i}$
+\end_inset
+
+ and compare it to zero
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ 
+\begin_inset Formula $\stackrel[i=1]{k}{\Sigma}$
+\end_inset
+
+
+\begin_inset Formula $\stackrel[i=1]{n}{\Sigma}$
+\end_inset
+
+
+\begin_inset Formula $(log(\frac{1}{s\sqrt{2\pi}}$
+\end_inset
+
+) + 
+\begin_inset Formula $\frac{-(x_{i}-\phi_{i})^{2}}{2s^{2}})$
+\end_inset
+
+
+\begin_inset Formula $\overrightarrow{derive}$
+\end_inset
+
+ 
+\begin_inset Formula $\text{\stackrel[j=1]{n}{\Sigma}}\frac{2(x_{j}-\phi_{i})}{2s^{2}}$
+\end_inset
+
+ = 0 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\rightarrow\stackrel[j=1]{n}{\Sigma}4x_{i}s^{2}-4\phi_{i}s^{2}$
+\end_inset
+
+ 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+
+\begin_inset Formula $\stackrel[j=1]{n}{\Sigma}x_{i}s^{2}$
+\end_inset
+
+= 
+\begin_inset Formula $n\phi_{i}s^{2}$
+\end_inset
+
+
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+
+\begin_inset Formula $\phi_{i}$
+\end_inset
+
+= 
+\begin_inset Formula $\frac{\stackrel[j=1]{n}{\Sigma}x_{i}}{n}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Sufficient statistic - 
+\series default
+as we can see in order to get the MLE value we need n,
+\begin_inset Formula $\text{\stackrel[j=1]{n}{\Sigma}}x_{i}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+I will take the algorithm I suggested on 2.2 and change the err function,
+ E
+\begin_inset Formula $_{s}.$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Total Error - E
+\begin_inset Formula $_{s}=$
+\end_inset
+
+
+\begin_inset Formula $\stackrel[i=]{N}{\Sigma(x_{i}-}\overline{x}_{i})^{2}$
+\end_inset
+
+ s.t 
+\begin_inset Formula $x_{i}\in\widetilde{D}$
+\end_inset
+
+ and 
+\begin_inset Formula $\overline{x}_{i}$
+\end_inset
+
+= 
+\begin_inset Formula $\overline{s}_{j}$
+\end_inset
+
+ for (b
+\begin_inset Formula $_{j}$
+\end_inset
+
+
+\begin_inset Formula $\leq j$
+\end_inset
+
+
+\begin_inset Formula $\leq e_{j})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\overline{s}_{j}$
+\end_inset
+
+ = 
+\begin_inset Formula $\frac{(\#G+C)_{i}}{e_{j}-b_{j}}$
+\end_inset
+
+ = 
+\begin_inset Formula $\stackrel[i=b_{j}]{e_{j}}{\Sigma}\frac{1_{(x_{i}=G\slash C)}}{e_{j}-b_{j}}$
+\end_inset
+
+ (just a reminder)
+\end_layout
+
+\begin_layout Itemize
+The time complexity is as I calculated before at 2.2 O(n
+\begin_inset Formula $^{3}\cdot k)$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+\bar under
+sources
+\series default
+\bar default
+ 
+\end_layout
+
+\begin_layout Itemize
+https://dornsife.usc.edu/assets/sites/516/docs/papers/msw_papers/msw-019.pdf
+\end_layout
+
+\begin_layout Itemize
+http://homepages.spa.umn.edu/~willmert/science/ksegments/#mjx-eqn-eqnrecurse
+\end_layout
+
+\begin_layout Itemize
+http://www.siam.org/meetings/sdm06/proceedings/029terzie.pdf
+\end_layout
+
+\begin_layout Section*
+Transition Rate matrices
+\end_layout
+
+\begin_layout Enumerate
+In order to solve this question I will use the Up-Down algorithm with a
+ few updates in order to take under consideration the fact that we have
+ L
+\begin_inset Formula $_{j}$
+\end_inset
+
+ a distribution over different R matrices which define the rate of change
+ for the nucleotide in the j position for all sequences in the MSE.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset Formula $Pr(a\overset{t_{i,j}}{\rightarrow}\text{x\ensuremath{_{j})} }$
+\end_inset
+
+when j is a leaf stays the same since we already know the leaf base.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\Sigma_{b\in\Sigma}Pr(a\overset{t_{i,j}}{\rightarrow}\text{b) =\ensuremath{[e^{\Delta R_{L_{j}}}]_{a,b}\cdot Pr(R}= R\ensuremath{_{L_{j}}|L_{ij})P(L_{i,j})}  }$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Here there is a change since we have different 
+\begin_inset Formula $R\{R\ensuremath{_{1}..R_{k}\}}$
+\end_inset
+
+ matrices , and a distribution 
+\begin_inset Formula $\ensuremath{L_{i,j}}$
+\end_inset
+
+ for choosing one.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+
+\series bold
+\bar under
+Up - Down algorithm
+\end_layout
+
+\begin_layout Enumerate
+Input tree T, root r
+\end_layout
+
+\begin_layout Enumerate
+Initialize: Post_order = DFS_post, Pre_order = DFS_pre(r)
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Up
+\series default
+(inward) :
+\end_layout
+
+\begin_layout Enumerate
+for i in Post_order do:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+for j in N(i) such that j precedes in post_order:do
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+for u in 
+\begin_inset Formula $\Sigma$
+\end_inset
+
+ do :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $U_{i,j}[a]$
+\end_inset
+
+ = 
+\begin_inset Formula $\left\{ \begin{array}{ccccc}
+Pr(a\overset{t_{i,j}}{\rightarrow}\text{x\ensuremath{_{j})}  } & j & is & a & leaf\\
+\\
+\Sigma_{b\in\Sigma}Pr(a\overset{t_{i,j}}{\rightarrow}b)\prod_{k\in N(j),k\neq i}U_{jk}[b] & j & isnot & a & leaf
+\end{array}\right\} $
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+Down(outward):
+\end_layout
+
+\begin_layout Enumerate
+for i in Pre_order do:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+for j in N(i) such that i precedes j in pre_order:do
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+for a in 
+\begin_inset Formula $\Sigma$
+\end_inset
+
+ do
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula $U_{j,i}[a]$
+\end_inset
+
+ = 
+\begin_inset Formula $\Sigma_{b\in\Sigma}Pr(b\overset{t_{i,j}}{\rightarrow}a)\prod_{k'\in N(i),k'\neq j}U_{ik'}[b]$
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\end_deeper
+\end_deeper
+\begin_layout Standard
+
+\series bold
+Now
+\series default
+ in order to get the assignment of the inner nodes i will use posterior
+ calculation for each internal node
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall i$
+\end_inset
+
+
+\begin_inset Formula $\in[$
+\end_inset
+
+n+1,...m] Pr(
+\begin_inset Formula $x_{L}|x_{i}=a)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\bar under
+Runtime
+\end_layout
+
+\begin_layout Itemize
+first we set an ordered array (pre/post) O(n)
+\end_layout
+
+\begin_layout Itemize
+Iterate on each node once O(n) and for every node we perform O(|
+\begin_inset Formula $\Sigma|^{2})$
+\end_inset
+
+ calculations 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+As a result the total runtime is O(n)
+\begin_inset Formula $+$
+\end_inset
+
+ O(n|
+\begin_inset Formula $\Sigma|^{2}$
+\end_inset
+
+) = O(n) 
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+
+\series bold
+\bar under
+Maximum Likelihood
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+P(k)
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $=\stackrel[j\text{\in for each position in seq}]{}{\prod}pr(R=R_{k}|L_{j})\cdot pr(L_{j})$
+\end_inset
+
+ , for every k 
+\begin_inset Formula $\in[1...k]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Now in order to get the MLE for each matrix we can apply log,derive and
+ compare to zero
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $\stackrel[j\text{\in for each position in seq}]{}{\prod}pr(R=R_{k}|L_{j})\cdot pr(L_{j})$
+\end_inset
+
+ = log(
+\begin_inset Formula $\stackrel[j=1]{n}{\prod}pr(R=R_{k}|L_{j})\cdot pr(L_{j}))$
+\end_inset
+
+ = 
+\begin_inset Formula $\stackrel[j=1]{n}{\Sigma}log(pr(R=R_{k}|L_{j})$
+\end_inset
+
+) + log(
+\begin_inset Formula $pr(L_{j}))$
+\end_inset
+
+ (not sure what to do from here) 
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+Not sure how to do this.
+ 
+\end_layout
+
+\begin_layout Enumerate
+This question is pretty hard, plus I don't have the previews MLE's results.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+I will define a matrix L size n
+\begin_inset Formula $\times$
+\end_inset
+
+k that will contain for each 
+\begin_inset Formula $L_{j}$
+\end_inset
+
+ (1
+\begin_inset Formula $\leq j\leq n)$
+\end_inset
+
+ k probabilities for choosing matrix R
+\begin_inset Formula $_{k}$
+\end_inset
+
+.
+ At the beginning I will initialize L with uniform distribution in each
+ cell (
+\begin_inset Formula $\frac{1}{k})$
+\end_inset
+
+ With the defined L run the up-down algorithm on our data.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+E step
+\series default
+ - calculate the sufficient statistics according to the data we get from
+ the up-down algorithm.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+M step - 
+\series default
+update the L matrix according to our sufficient statistics 
+\end_layout
+
+\begin_layout Standard
+Continue with this process until we get a convergence in the tree LL(a LL
+ which explains the tree nodes assignment), which means we optimized L values
+ up to the point where it explains our tree the best.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+No time it was hard enough! :)
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+\bar under
+sources
+\series default
+\bar default
+ 
+\end_layout
+
+\begin_layout Itemize
+http://www.tau.ac.il/~talp/publications/recombSemphy.pdf
+\end_layout
+
+\begin_layout Itemize
+`Scribe 10 from previews year.
+\end_layout
+
+\begin_layout Itemize
+Scribe 17 from previews year.
+\end_layout
+
+\begin_layout Itemize
+http://moodle2.cs.huji.ac.il/nu16/pluginfile.php/375468/mod_resource/content/1/
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Lecture%2016%20-%20Nitzan%20Bodenheimer.pdf (niztan scribe)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset Graphics
+	filename nand2tetris/sta.png
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
