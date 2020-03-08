@@ -1,0 +1,1549 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Computational Genomics
+\end_layout
+
+\begin_layout Title
+Lesson 5 - mRNA-seq Analysis Using Transcript Annotations
+\end_layout
+
+\begin_layout Date
+Lior Ziv
+\end_layout
+
+\begin_layout Date
+26/04/17
+\end_layout
+
+\begin_layout Section*
+Transcriptome
+\end_layout
+
+\begin_layout Itemize
+The transcriptome is the set of all messenger RNA molecules(mRNA, rRNA,
+ tRNA, ncRNA) in one cell or a population of cells.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\color black
+Why should we bother to characterize the transcriptome?
+\end_layout
+
+\begin_layout Standard
+Most of the regulation happens in the transcription phase
+\end_layout
+
+\begin_layout Itemize
+Snapshot of the 
+\begin_inset Quotes eld
+\end_inset
+
+internal state
+\begin_inset Quotes erd
+\end_inset
+
+ of the cell
+\end_layout
+
+\begin_layout Itemize
+In contrast to the genome which is static the transcriptome dynamics helps
+ us understand different states and study them
+\end_layout
+
+\begin_layout Itemize
+We can answer questions like - what genes are active?
+\end_layout
+
+\begin_layout Itemize
+Find genes expression levels.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+How it is done?
+\end_layout
+
+\begin_layout Standard
+Used to be RNA 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+cDNA library 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+hybridization to microarray.
+\end_layout
+
+\begin_layout Standard
+Today we are using
+\series bold
+ RNA - sequencing.
+\end_layout
+
+\begin_layout Part*
+
+\series bold
+RNA - Sequencing
+\end_layout
+
+\begin_layout Standard
+Today there are many methods to perform RNA-sequencing, here there is a
+ general scheme of the process : 
+\end_layout
+
+\begin_layout Enumerate
+RNA is isolated from tissue
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Graphics
+	filename scribe/1.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Remove DNA with DNase.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+We can also filter just the mRNA out of the total RNA by using polyA primer
+ for example.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename scribe/2.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Fragment RNA - 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\color black
+A specific length range is needed in order to sequence properly.
+ 
+\end_layout
+
+\begin_layout Standard
+Fragmentation of the RNA also reduces 5'/3' bias of randomly primed-reverse
+ transcription and the influence of primer binding sites.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename scribe/3.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Build cDNA library - RNA is reverse transcribed to cDNA
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Graphics
+	filename scribe/4.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Ligate sequence adaptors
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Graphics
+	filename scribe/5.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Using PCR to amplify, select range of sizes 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Graphics
+	filename scribe/6.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Sequence cDNA library , with Illumina for example.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Sequencing can be done by:
+\end_layout
+
+\begin_layout Itemize
+Single end sequencing - sequence only from one end of the fragment
+\end_layout
+
+\begin_layout Itemize
+Paired-end sequencing - sequence from both ends of a fragment
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename scribe/7.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection*
+
+\size large
+\color black
+Analysis of mRNA-seq Data
+\end_layout
+
+\begin_layout Standard
+
+\bar under
+The Main challenge with mRNA-seq
+\end_layout
+
+\begin_layout Itemize
+Many short reads (typical read length - 50-75bp) originating from long transcrip
+ts (range from 500 to 10000bps , 2000bps on average )
+\end_layout
+
+\begin_layout Itemize
+As a result of RNA instability we keep it as cDNA which leads to loss of
+ data, such as orientation.
+\end_layout
+
+\begin_layout Itemize
+We do not know how much of the total RNA we covered.
+\end_layout
+
+\begin_layout Itemize
+As a result of RNA alternative splicing we might have a few different isoforms
+ of the same transcript.
+ This is handled using a unique part(if there is) from each isoform a part
+ of the input to a probabilistic analysis (EM,Rescue).
+\end_layout
+
+\begin_layout Standard
+
+\bar under
+Analysis Methods
+\end_layout
+
+\begin_layout Enumerate
+Using full transcriptome annotations - focus of this lecture.
+\end_layout
+
+\begin_layout Enumerate
+Using genome sequence - this approach relies on the fact that we have the
+ genome as a reference but we don't know what are the isoform expressed
+ and their expression level.
+ Will be discussed next lecture.
+ 
+\end_layout
+
+\begin_layout Enumerate
+De novo transcriptome assembly - this approach does not require a reference
+ genome to reconstruct the transcriptome, and is typically used if the genome
+ is unknown or incomplete.
+ Will be disscussed next lecture.
+\end_layout
+
+\begin_layout Part*
+mRNA-seq Analysis using Full Transcript Annotations
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Estimating Transcript Abundance
+\end_layout
+
+\begin_layout Itemize
+Assume for each gene we get all of its transciptions.
+ Even in that case, we can’t know for sure from which isoform it came from.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Input - 
+\end_layout
+
+\begin_layout Standard
+(1) A full qualitative catalogue of transcriptome
+\end_layout
+
+\begin_layout Standard
+(2) Set of sequenced fragments (reads)
+\end_layout
+
+\begin_layout Standard
+Output - 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\rho$
+\end_inset
+
+ - Estimated abundance (expression level) of each transcript 
+\end_layout
+
+\begin_layout Standard
+
+\bar under
+Example
+\end_layout
+
+\begin_layout Itemize
+Figure 1 - the first reads part can belong to either the blue or red transcript,
+ but if you look at the next group of reads we see match only the blue transcrip
+t.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+That is why in this case we assume that those reads probably originated
+ from the blue transcript 
+\begin_inset Formula $\rho(blue)$
+\end_inset
+
+ > 
+\begin_inset Formula $\rho(red)$
+\end_inset
+
+ .
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Figure 2 - the first reads part can belong to either the blue or red transcript,
+ but if you look at the next group of reads we see match only the red transcript.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+That is why in this case we assume that those reads probably originated
+ from the red transcript 
+\begin_inset Formula $\rho(red)$
+\end_inset
+
+ > 
+\begin_inset Formula $\rho(blue)$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+But looking at figure 1 we might miss the red small part in the mRNA-seq
+ process, so how can we be sure? 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename scribe/exam12.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename scribe/exam1.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection*
+
+\series bold
+Simple Generative Model (multinomial)
+\end_layout
+
+\begin_layout Standard
+The assumption is that all reads uniquely mapped to a single transcript
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $T$
+\end_inset
+
+- set of transcripts (isoforms)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $l_{t}$
+\end_inset
+
+ - length of transcript t
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\rho_{t}$
+\end_inset
+
+ - relative abundance of transcript t, s.t 
+\begin_inset Formula $\underset{t\in T}{\Sigma}\rho_{t}=1$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $F_{t}$
+\end_inset
+
+ - set of reads mapping to transcript t(a set of all the reads matching
+ isoform t)
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\tilde{\text{\ensuremath{l_{t}}}}$
+\end_inset
+
+- (
+\begin_inset Formula $l_{t}$
+\end_inset
+
+ - m + 1), effective length of transcript t, where m is the read length
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\alpha_{t}:=P(f\in t)$
+\end_inset
+
+= 
+\begin_inset Formula $\frac{p_{t}\tilde{l_{t}}}{\Sigma_{r\in T}p_{r}\tilde{l_{r}}}$
+\end_inset
+
+, probability of a read being from transcript t.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+We can see that 
+\begin_inset Formula $\alpha_{t}$
+\end_inset
+
+
+\begin_inset Formula $\propto$
+\end_inset
+
+
+\begin_inset Formula $p_{t}\tilde{l_{t}}$
+\end_inset
+
+ (division by a constant 
+\begin_inset Formula $\Sigma_{r\in T}p_{r}\tilde{l_{r}})$
+\end_inset
+
+
+\begin_inset Formula $therefore$
+\end_inset
+
+ we can say 
+\begin_inset Formula $\rightarrow\text{\text{\rho\ensuremath{_{t}\propto\text{\frac{\alpha_{t}}{\tilde{l_{t}}}}}}}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+
+\bar under
+Example
+\end_layout
+
+\begin_layout Standard
+In figure 3 we see two different reads with the same abundance 
+\begin_inset Formula $\rho_{1}=$
+\end_inset
+
+
+\begin_inset Formula $\rho_{2}$
+\end_inset
+
+, but different length 
+\begin_inset Formula $2l_{1}=$
+\end_inset
+
+
+\begin_inset Formula $l_{2}$
+\end_inset
+
+, therefore we get 
+\begin_inset Formula $\alpha_{2}$
+\end_inset
+
+= 2
+\begin_inset Formula $\alpha_{1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename scribe/exmp2.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+In order to calculate the abundance 
+\begin_inset Formula $\rho_{t}$
+\end_inset
+
+for a specific transcript t (
+\begin_inset Formula $t\in T)$
+\end_inset
+
+, we go through all it's reads(read from 
+\begin_inset Formula $F_{t})$
+\end_inset
+
+ and for each multiply the probability of a read being from transcript t
+ (
+\begin_inset Formula $\alpha_{t}$
+\end_inset
+
+ = 
+\begin_inset Formula $\frac{p_{t}\tilde{l_{t}}}{\Sigma_{r\in T}p_{r}\tilde{l_{r}}}$
+\end_inset
+
+) with 
+\begin_inset Formula $\frac{1}{\tilde{l_{t}}}$
+\end_inset
+
+ which represent the probability of that read to start at one of the
+\begin_inset Formula $\tilde{l_{t}}$
+\end_inset
+
+ places in t.
+\end_layout
+
+\begin_layout Itemize
+Therefore the likelihood of the data(sequencing output) as a function of
+ 
+\begin_inset Formula $ρ$
+\end_inset
+
+ is : 
+\begin_inset Formula $\mathcal{L}(\rho)$
+\end_inset
+
+ = 
+\begin_inset Formula $\underset{t\in T}{\Pi}\underset{f\in F_{t}}{\Pi}($
+\end_inset
+
+
+\begin_inset Formula $\frac{p_{t}\tilde{l_{t}}}{\Sigma_{r\in T}p_{r}\tilde{l_{r}}}$
+\end_inset
+
+
+\begin_inset Formula $\cdot\frac{1}{\tilde{l_{t}}})$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+Let’s define 
+\begin_inset Formula $X_{t}$
+\end_inset
+
+ as the total number of reads mapped to transcript t, hence, 
+\begin_inset Formula $X_{t}$
+\end_inset
+
+ = 
+\begin_inset Formula $|Ft|$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $\mathcal{L}(\rho)$
+\end_inset
+
+ = 
+\begin_inset Formula $\underset{t\in T}{\Pi}($
+\end_inset
+
+
+\begin_inset Formula $\frac{p_{t}\tilde{l_{t}}}{\Sigma_{r\in T}p_{r}\tilde{l_{r}}}$
+\end_inset
+
+
+\begin_inset Formula $\cdot\frac{1}{\tilde{l_{t}}})^{X_{t}}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\underset{t\in T}{\Pi}($
+\end_inset
+
+
+\begin_inset Formula $\frac{p_{t}\tilde{l_{t}}}{\Sigma_{r\in T}p_{r}\tilde{l_{r}}}$
+\end_inset
+
+
+\begin_inset Formula $\cdot\frac{1}{\tilde{l_{t}}})^{X_{t}}$
+\end_inset
+
+ = 
+\begin_inset Formula $\underset{t\in T}{\Pi}($
+\end_inset
+
+
+\begin_inset Formula $\alpha_{t}$
+\end_inset
+
+
+\begin_inset Formula $\cdot\frac{1}{\tilde{l_{t}}})^{X_{t}}$
+\end_inset
+
+ = 
+\begin_inset Formula $\mathcal{L}(\alpha)$
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Therefore 
+\begin_inset Formula $\Rightarrow$
+\end_inset
+
+
+\begin_inset Formula $\mathcal{L}(\alpha)$
+\end_inset
+
+ = 
+\begin_inset Formula $\underset{t\in T}{\Pi}($
+\end_inset
+
+
+\begin_inset Formula $\frac{\alpha_{t}}{\tilde{l_{t}}})^{X_{t}}$
+\end_inset
+
+ 
+\begin_inset Formula $\propto$
+\end_inset
+
+ 
+\begin_inset Formula $\underset{t\in T}{\Pi}($
+\end_inset
+
+
+\begin_inset Formula $\alpha_{t})^{X_{t}}$
+\end_inset
+
+(multinomial distribution)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+*We assume we know 
+\begin_inset Formula $\tilde{l_{t}}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Paragraph*
+
+\series bold
+ML Estimator of 
+\begin_inset Formula $ρ_{t}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+Since we just showed 
+\begin_inset Formula $\mathcal{L}(\alpha)$
+\end_inset
+
+ has a multinomial distribution, 
+\begin_inset Formula $\hat{\alpha_{t}}=$
+\end_inset
+
+
+\begin_inset Formula $\frac{X_{t}}{N}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\mathcal{L}(\rho)=$
+\end_inset
+
+
+\begin_inset Formula $\underset{t\in T}{\Pi}($
+\end_inset
+
+
+\begin_inset Formula $\frac{\alpha_{t}}{\tilde{l_{t}}})^{X_{t}}$
+\end_inset
+
+ (since 
+\begin_inset Formula $\text{\text{\rho\ensuremath{_{t}\propto\text{\frac{\alpha_{t}}{\tilde{l_{t}}}}}}}$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $N$
+\end_inset
+
+ = 
+\begin_inset Formula $\underset{t\in T}{\Sigma}X_{t}$
+\end_inset
+
+ (from 
+\begin_inset Formula $X_{t}$
+\end_inset
+
+definition)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula $\Rightarrow$
+\end_inset
+
+
+\begin_inset Formula $\hat{\rho_{t}}$
+\end_inset
+
+= 
+\begin_inset Formula $\frac{\frac{\hat{\alpha_{t}}}{\hat{l_{t}}}}{\Sigma_{r\in T}\frac{\hat{\alpha_{r}}}{\hat{l_{r}}}}$
+\end_inset
+
+
+\begin_inset Formula $\propto$
+\end_inset
+
+
+\begin_inset Formula $\frac{X_{t}}{N\cdot\hat{l_{t}}}$
+\end_inset
+
+ 
+\begin_inset Formula $\propto$
+\end_inset
+
+
+\begin_inset Formula $\frac{X_{t}}{\frac{N}{10^{6}}\cdot\text{\ensuremath{\frac{\hat{l_{t}}}{10^{3}}}}}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+That is often called 
+\series bold
+FPKM - 
+\series default
+fragments per kilobase of transcript per million reads
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+We normalize the FPKM because libraries can have different sizes.
+\end_layout
+
+\end_deeper
+\begin_layout Part*
+
+\series bold
+Multi - reads 
+\end_layout
+
+\begin_layout Standard
+In real life, many reads can map to more than one transcript, for several
+ reasons:
+\end_layout
+
+\begin_layout Itemize
+Overlapping isoforms
+\end_layout
+
+\begin_layout Itemize
+Repeats in the genome.
+\end_layout
+
+\begin_layout Itemize
+Sequencing errors - less likely since usually even 20bp are enough to uniquely
+ map.
+\end_layout
+
+\begin_layout Itemize
+Abundance estimation using incomplete data.
+\end_layout
+
+\begin_layout Standard
+Is ignoring multi reads a bad idea ?
+\end_layout
+
+\begin_layout Itemize
+Loss of information
+\end_layout
+
+\begin_layout Itemize
+Biased estimation
+\end_layout
+
+\begin_layout Part*
+
+\series bold
+Parameter Estimation using the “Rescue” Method 
+\end_layout
+
+\begin_layout Description
+Step_0 Discard all multi-reads - reads which map to a few transcripts.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Calculate “unique length” of each transcript, refers to the unique parts
+ in each transcripts, parts to which only a single read is mapped to.
+ 
+\end_layout
+
+\begin_layout Standard
+Moreover a transcript might have a overlap with another read and then the
+ reads in this region are considered multi reads but the rest of the transcript
+ might map uniquely and that remaining part will be considered in calculating
+ the "unique length".
+\end_layout
+
+\begin_layout Standard
+Estimate abundances 
+\begin_inset Formula $ρ_{t}$
+\end_inset
+
+ using remaining reads.
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Step_1 Estimated expected contribution of f to each t :
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Divide each multi-read
+\size large
+\color blue
+ 
+\size default
+\color inherit
+between 
+\begin_inset Formula $y_{f,t}$
+\end_inset
+
+ transcripts proportionally to their abundances 
+\begin_inset Formula $ρ_{t}$
+\end_inset
+
+ (
+\begin_inset Formula $\underset{t'}{\Sigma}y_{f,t'}=$
+\end_inset
+
+1)
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Step_2 Recompute 
+\begin_inset Formula $ρ_{t}$
+\end_inset
+
+ abundances based on the updated counts 
+\begin_inset Formula $X_{t}$
+\end_inset
+
+ for each transcript t 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Comments on “Rescue” Method
+\end_layout
+
+\begin_layout Itemize
+Why stop after last step?
+\end_layout
+
+\begin_layout Itemize
+Initialization by unique reads could bias results.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\color black
+For example if we have 2 isoforms like in figure 4 and in our sample we
+ have 50% blue isoform and 50% green.
+\end_layout
+
+\begin_layout Standard
+
+\color black
+At step zero we will discard the blue isofrom since it has no unique parts.
+ As a result we won't find any match read (
+\begin_inset Formula $\rho_{t}$
+\end_inset
+
+= 0) .
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+How to regularize initial estimation of 
+\begin_inset Formula $ρ_{t}$
+\end_inset
+
+ ? In order not to get a biased result.
+\end_layout
+
+\begin_layout Itemize
+What about isoforms with no unique reads? like the blue in the figure 4.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula $\rho_{blue}$
+\end_inset
+
+ will be initialized to zero , in order to overcome this problem we can
+ use uniform
+\end_layout
+
+\begin_layout Standard
+initialization.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename scribe/examp3.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Two different isoforms of the same transcript
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+
+\series bold
+Define Compatibility Matrix Y 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $y_{f,t}=\begin{cases}
+\begin{array}{ccccccccc}
+1 &  & read & f & aligns & to & transcript & t\\
+\\
+0 &  & otherwise
+\end{array}\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\mathcal{L}(\alpha)$
+\end_inset
+
+ = 
+\begin_inset Formula $\underset{t\in T}{\Pi}($
+\end_inset
+
+
+\begin_inset Formula $\frac{\alpha_{t}}{\tilde{l_{t}}})^{X_{t}}$
+\end_inset
+
+ 
+\begin_inset Formula $\Rightarrow\mathcal{L}(\alpha)=\underset{f}{\Pi}(\underset{t}{\Sigma}y_{f,t}\frac{\alpha_{t}}{\tilde{l_{t}}})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Where the probability for each f is accumulated over all transcripts t that
+ match f
+\color black
+ , since 
+\begin_inset Formula $y_{f,t}$
+\end_inset
+
+= 1 
+\begin_inset Formula $\iff$
+\end_inset
+
+read f 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+aligns to transcript t
+\end_layout
+
+\begin_layout Part*
+Parameter Estimation using EM
+\end_layout
+
+\begin_layout Description
+Init Uniformly/by random/ Otherwise
+\end_layout
+
+\begin_layout Description
+M-step Compute expected contributions of f to each t - divide each multi-read
+ between 
+\begin_inset Formula $y_{f,t}$
+\end_inset
+
+ transcripts proportionally to their abundances 
+\begin_inset Formula $\rho_{t}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+E-step Compute expression values (transcript abundances) 
+\begin_inset Formula $ρ_{t}$
+\end_inset
+
+ based on updated 
+\begin_inset Formula $X_{t}$
+\end_inset
+
+ counts
+\end_layout
+
+\begin_layout Subsubsection*
+Comparison Between the Two Algorithms
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename scribe/examp4.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+From figure 5 we see that both of the algorithms get good correlation between
+ the true expression level and the predicted expression level, but it is
+ clear that the EM gets a stronger correlation.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Example to the EM Algorithm
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename scribe/examp5.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Init
+\series default
+- each small pie chart represents the probability a read belongs to a transcript
+(
+\begin_inset Formula $P(f\in t))$
+\end_inset
+
+.The big pie chart represents the abundance of each transcript(
+\begin_inset Formula $\rho_{t})$
+\end_inset
+
+.
+ Here we started with uniform initialization and we fill the matrix according
+ to 
+\begin_inset Formula $y_{f,t}$
+\end_inset
+
+ formula; 1 in every transcript a read might belong to.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+M-step
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Recomputing 
+\begin_inset Formula $X_{t}$
+\end_inset
+
+ -
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $X_{red}$
+\end_inset
+
+= 0.33 + 0.5 + 1 + 0.5 = 2
+\begin_inset Formula $\frac{1}{3}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $X_{green}=$
+\end_inset
+
+
+\begin_inset Formula $X_{blue}$
+\end_inset
+
+= 0.33+0.5+0.5 = 1
+\begin_inset Formula $\frac{1}{3}$
+\end_inset
+
+r
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+E-step
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Compute transcript abundances 
+\begin_inset Formula $ρ_{t}$
+\end_inset
+
+ based on updated 
+\begin_inset Formula $X_{t}$
+\end_inset
+
+ counts
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\rho_{red}$
+\end_inset
+
+ = 
+\begin_inset Formula $\frac{X_{red}}{X_{red}+X_{blue}+X_{green}}$
+\end_inset
+
+ = 0.47
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\rho_{blue}$
+\end_inset
+
+ =
+\begin_inset Formula $\rho_{green}=$
+\end_inset
+
+ 
+\begin_inset Formula $\frac{X}{X_{red}+X_{blue}+X_{green}}$
+\end_inset
+
+ = 0.27
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename scribe/examp6.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Section*
+What You Should Worry About? - You Don't
+\end_layout
+
+\begin_layout Itemize
+Sequencing errors, remember 
+\begin_inset Formula $y_{f,t}$
+\end_inset
+
+ since it is binary if a read won't perfectly match
+\begin_inset Formula $\rightarrow y_{f,t}=0$
+\end_inset
+
+(causes loss of data)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+A suggested solution would be to replaced by P(f |t), this way we will get
+ a probability instead of binary classification.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+EM - different initialization might lead to different results.
+\end_layout
+
+\begin_layout Itemize
+EM - convergence into global optimum is not guaranteed, we might get to
+ a local optimum (solution - few restarts) 
+\end_layout
+
+\begin_layout Itemize
+If we don't have enough data 
+\begin_inset Formula $\Rightarrow$
+\end_inset
+
+ Regularization is needed
+\end_layout
+
+\end_body
+\end_document

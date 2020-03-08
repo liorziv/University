@@ -1,0 +1,957 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+Ex2 - Lior Ziv
+\end_layout
+
+\begin_layout Section*
+Thoretical part - Soft K-Means and EM
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Propose a method for calculating the weights w
+\begin_inset Formula $_{i,c}$
+\end_inset
+
+ for this soft K-Means version.
+ Provide the full equation(s) and explain your answer.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+I will propose the next calculation w
+\begin_inset Formula $_{i,c}$
+\end_inset
+
+= 
+\begin_inset Formula $\frac{e^{||x_{j}-\text{\mu\ensuremath{_{i}||^{2}}}}}{\stackrel[I=1]{k}{\Sigma}e^{||x_{j}-\text{\mu\ensuremath{_{i}||^{2}}}}}$
+\end_inset
+
+ , in this case for each point i and cluster c we assign a weight w
+\begin_inset Formula $_{i,c}$
+\end_inset
+
+ 
+\begin_inset Formula $\in[0,1]$
+\end_inset
+
+ were the total sum of all the weights per point is 1 
+\begin_inset Formula $\stackrel[c_{i}\text{\in clusters}]{}{\sum}w_{i,c_{i}}=$
+\end_inset
+
+1.
+\end_layout
+
+\begin_layout Standard
+This formula fits to calculate the weights since it increase when the distance
+ between 
+\begin_inset Formula $x_{j},\text{\mu\ensuremath{_{i}} decrease}\text{\rightarrow}$
+\end_inset
+
+the numerator grows.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Explain how the soft K-Means problem can be solved using the EM algorithm.
+ Formalize a Likelihood function, and show that it is equivalent to the
+ soft K- Means objective function.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+In order to answer this question I will assume that:
+\end_layout
+
+\begin_layout Itemize
+Each centroid is sampled
+\begin_inset Formula $\mu\ensuremath{_{c}}$
+\end_inset
+
+
+\begin_inset Formula $\in N(\mu_{c},1)$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Itemize
+Each point 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ is sampled with P(x|
+\begin_inset Formula $\mu$
+\end_inset
+
+
+\begin_inset Formula $_{c})$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+With this specific assumptions the probability to a point in the set will
+ be written as 
+\end_layout
+
+\begin_layout Itemize
+P(x
+\begin_inset Formula $_{i})$
+\end_inset
+
+ = 
+\begin_inset Formula $\stackrel[c=1]{k}{\Sigma}$
+\end_inset
+
+P(x
+\begin_inset Formula $_{i}$
+\end_inset
+
+|
+\begin_inset Formula $\mu$
+\end_inset
+
+
+\begin_inset Formula $_{c})$
+\end_inset
+
+ 
+\begin_inset Formula $\cdot p(\mu_{c})$
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Now under our assumptions we can translate it parts into: 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+P(x
+\begin_inset Formula $_{i}$
+\end_inset
+
+|
+\begin_inset Formula $\mu$
+\end_inset
+
+
+\begin_inset Formula $_{c})$
+\end_inset
+
+ = 
+\begin_inset Formula $N(x|\text{µ}_{c})=γ_{c}e^{\text{−}\frac{1}{2}||x\text{−µ}_{c}||^{2}}$
+\end_inset
+
+ according to multivariate Gaussian distribution, s.t 
+\begin_inset Formula $γ_{c}$
+\end_inset
+
+= 
+\begin_inset Formula $\frac{1}{\sqrt{2\pi}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+P(
+\begin_inset Formula $\mu$
+\end_inset
+
+
+\begin_inset Formula $_{c})$
+\end_inset
+
+ = 
+\begin_inset Formula $\pi_{c}$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Those combined we get - P(x
+\begin_inset Formula $_{i})$
+\end_inset
+
+ = 
+\begin_inset Formula $\stackrel[c=1]{k}{\Sigma}$
+\end_inset
+
+
+\begin_inset Formula $N(x|\text{µ}_{c})$
+\end_inset
+
+
+\begin_inset Formula $\cdot\pi_{c}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Now in order to estimate our set of points we need to calculate the maximum
+ likelihood for 
+\begin_inset Formula $\theta=\{\pi_{1},\mu_{1}$
+\end_inset
+
+,...
+\begin_inset Formula $\pi_{k},\mu_{k})$
+\end_inset
+
+ , 
+\begin_inset Formula $L(θ|X)=\stackrel[i=1]{n}{∏}p(x_{i})=\stackrel[i=1]{n}{\text{∏}}\stackrel[c=1]{k}{\Sigma}N(x_{i}|\text{µ}_{c})\cdot\pi_{c}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Usually in order to find the maximum for this equation I will apply log
+ and derive it, but in this case it is too complicated to in order to solve
+ the problem I will associate it to the weights formula from the previews
+ question and add a parameter to the likelihood.
+ 
+\end_layout
+
+\begin_layout Standard
+Let us therefore assume a set Z={z
+\begin_inset Formula $_{11}$
+\end_inset
+
+,z
+\begin_inset Formula $_{12}$
+\end_inset
+
+ , .
+ .
+ .
+ , z
+\begin_inset Formula $_{nk}$
+\end_inset
+
+} such that each z is a weight which represents the probability of point
+ x
+\begin_inset Formula $_{i}$
+\end_inset
+
+to be assign to centroid 
+\begin_inset Formula $\mu_{i}$
+\end_inset
+
+
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+
+\begin_inset Formula $L(θ|X,Z)=\stackrel[i=1]{n}{\text{∏}}\stackrel[c=1]{k}{\Sigma}z_{ic}N(x_{i}|\text{µ}_{c})\cdot\pi_{c}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To solve the equation we will assume that the optimal solution gives only
+ one z
+\begin_inset Formula $_{i,c}$
+\end_inset
+
+ =1 (x
+\begin_inset Formula $_{i}\in\mu_{c})$
+\end_inset
+
+ and all the rest z
+\begin_inset Formula $_{i,c'}=0$
+\end_inset
+
+(
+\begin_inset Formula $x_{i}\notin\mu_{c'})$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset Formula $\stackrel[i=1]{n}{\Sigma}$
+\end_inset
+
+
+\begin_inset Formula $\stackrel[c=1]{k}{\Sigma}z_{ic}N(x_{i}|\text{µ}_{c})\cdot\pi_{c}$
+\end_inset
+
+ =
+\begin_inset Formula $\stackrel[i=1]{\text{n}}{\Pi}$
+\end_inset
+
+ 
+\begin_inset Formula $\stackrel[c=1]{k}{\Pi}[N(x_{i}|\text{µ}_{c})\cdot\pi_{c}]^{z_{ic}}$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $LL(θ|X,Z)=\stackrel[i=1]{\text{n}}{\Sigma}\stackrel[c=1]{k}{\Sigma}log([\text{\text{\ensuremath{N(x_{i}|\text{µ}_{c})}}}\cdot\pi_{c}]^{z_{ic}})$
+\end_inset
+
+= 
+\begin_inset Formula $\stackrel[i=1]{\text{n}}{\Sigma}\stackrel[c=1]{k}{\Sigma}z_{i,c}(log(N(x_{i}|\text{µ}_{c}))+log(\pi_{c})$
+\end_inset
+
+) = 
+\begin_inset Formula $\stackrel[i=1]{\text{n}}{\Sigma}\stackrel[c=1]{k}{\Sigma}z_{i,c}(log(γ_{c}e^{\text{−}\frac{1}{2}||x\text{−µ}_{c}||^{2}})+log(\pi_{c}))=$
+\end_inset
+
+
+\begin_inset Formula $\stackrel[i=1]{\text{n}}{\Sigma}\stackrel[c=1]{k}{\Sigma}z_{i,c}(log(\text{\frac{1}{\sqrt{2\pi}}) +\text{(−}\frac{1}{2}||x\text{−µ}_{c}||^{2}) }+log(\pi_{c}))$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+[
+\begin_inset Formula $\stackrel[i=1]{\text{n}}{\Sigma}\stackrel[c=1]{k}{\Sigma}$
+\end_inset
+
+
+\begin_inset Formula $z_{i,c}$
+\end_inset
+
+
+\begin_inset Formula $log(\pi_{c})]$
+\end_inset
+
++ [
+\begin_inset Formula $\stackrel[i=1]{\text{n}}{\Sigma}\stackrel[c=1]{k}{\Sigma}$
+\end_inset
+
+
+\begin_inset Formula $z_{i,c}$
+\end_inset
+
+ log(
+\begin_inset Formula $\frac{1}{\sqrt{2\pi}})]$
+\end_inset
+
+ - [
+\begin_inset Formula $\stackrel[i=1]{\text{n}}{\Sigma}\stackrel[c=1]{k}{\Sigma}$
+\end_inset
+
+
+\begin_inset Formula $z_{i,c}$
+\end_inset
+
+(
+\begin_inset Formula $\frac{1}{2}||x\text{−µ}_{c}||^{2})]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The second brackets are constant therefore we can ignore it, the first and
+ third are independent.
+ In order to maximize the LL we would like to minimize the third brackets,
+ pay attention that we can treat z
+\begin_inset Formula $_{i,c}$
+\end_inset
+
+as w
+\begin_inset Formula $_{i,c}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+* Denote c
+\begin_inset Formula $_{i}{}^{*}$
+\end_inset
+
+as the closest centroid to x
+\begin_inset Formula $_{i}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+**
+\begin_inset Formula $\stackrel[c_{i}\text{\in clusters}]{}{\sum}w_{i,c_{i}}$
+\end_inset
+
+= 1
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\stackrel[i=1]{\text{n}}{\Sigma}\stackrel[c=1]{k}{\Sigma}$
+\end_inset
+
+
+\begin_inset Formula $z_{i,c}$
+\end_inset
+
+(
+\begin_inset Formula $\frac{1}{2}||x\text{−µ}_{c}||^{2})$
+\end_inset
+
+ = 
+\begin_inset Formula $\stackrel[i=1]{\text{n}}{\Sigma}\stackrel[c=1]{k}{\Sigma}$
+\end_inset
+
+
+\begin_inset Formula $w_{i,c}$
+\end_inset
+
+(
+\begin_inset Formula $\frac{1}{2}||x\text{−µ}_{c}||^{2})$
+\end_inset
+
+ 
+\begin_inset Formula $\leq$
+\end_inset
+
+
+\begin_inset Formula $\stackrel[i=1]{\text{n}}{\Sigma}\stackrel[c=1]{k}{\Sigma}$
+\end_inset
+
+
+\begin_inset Formula $w_{i,c}$
+\end_inset
+
+(
+\begin_inset Formula $\frac{1}{2}||x_{i}\text{−µ}_{c_{i}^{*}}||^{2})$
+\end_inset
+
+ = 
+\begin_inset Formula $\stackrel[i=1]{\text{n}}{\Sigma}(\frac{1}{2}||x\text{−µ}_{c_{i}^{*}}||^{2})\stackrel[c=1]{k}{\Sigma}$
+\end_inset
+
+
+\begin_inset Formula $w_{i,c}$
+\end_inset
+
+=
+\begin_inset Formula $^{**}$
+\end_inset
+
+ 
+\begin_inset Formula $\stackrel[i=1]{\text{n}}{\Sigma}(\frac{1}{2}||x\text{−µ}_{c_{i}^{*}}||^{2})$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Therfore we can see that maximazing the LL is like minimizing the objective
+ function.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+We can see the maximizing the last brackets equals to minimizing 
+\begin_inset Formula $\stackrel[i=1]{\text{n}}{\Sigma}\stackrel[c=1]{k}{\Sigma}$
+\end_inset
+
+
+\begin_inset Formula $z_{i,c}$
+\end_inset
+
+(
+\begin_inset Formula $\frac{1}{2}||x\text{−µ}_{c}||^{2})$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+I will take the set 
+\begin_inset Formula $\Rightarrow(0,1),(10,1),(10,0),(0,0)$
+\end_inset
+
+ with initial centroids of (5,1),(5,0)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+first we get the clusters {(10,0),(0,0)} 
+\begin_inset Formula $\in(5,0)$
+\end_inset
+
+, {(10,1),(0,1)} 
+\begin_inset Formula $\in(5,1)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Update the centroids 
+\begin_inset Formula $\frac{10+0}{2}$
+\end_inset
+
+= 5 
+\begin_inset Formula $\frac{0+0}{2}$
+\end_inset
+
+= 0 
+\begin_inset Formula $\rightarrow\text{(5,0)}$
+\end_inset
+
+ | 
+\begin_inset Formula $\frac{10}{2}=5$
+\end_inset
+
+ 
+\begin_inset Formula $\frac{2}{2}=1$
+\end_inset
+
+
+\begin_inset Formula $\rightarrow5,1$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+We got the same centroids which means the algorithm converged(since next
+ we assign our points to the new centroids which are the same - nothing
+ changes) , those the score we get , 
+\begin_inset Formula $\stackrel[i=1]{2}{\Sigma}\stackrel[c=1]{4}{\Sigma}$
+\end_inset
+
+1(
+\begin_inset Formula $||x_{i}\text{−µ}_{c}||^{2})$
+\end_inset
+
+ = 25 + 25 + 25 +25 = 100
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+But if we check a better minimal score would be centroids 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+(10,0.5),(0,0.5).
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+with a score of - 
+\begin_inset Formula $\stackrel[i=1]{2}{\Sigma}\stackrel[c=1]{4}{\Sigma}$
+\end_inset
+
+1(
+\begin_inset Formula $||x_{i}\text{−µ}_{c}||^{2})$
+\end_inset
+
+ = 0.25 + 0.25 + 0.25 +0.25 = 1
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+A way to avoid it is to run the algorithm few times with new initialized
+ centroids and take the centroids which give us the best score over all
+ the iterations, which is what we do in the restartNum task.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+In the case we have an optimal solution then we have a global minimal value
+ and since the optimal solution for the soft k-means in that way is the
+ same as the hard we get that the same exaple from the previews question
+ can be applied.
+ 
+\end_layout
+
+\begin_layout Section*
+Programming part 1 - Agglomerative clustering
+\end_layout
+
+\begin_layout Enumerate
+Submitted
+\end_layout
+
+\begin_layout Enumerate
+Plots - 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Graphics
+	filename sub/dendrogramAvergaeLinkage.jpg
+	lyxscale 60
+	scale 30
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename sub/dendrogramSingleLinkage.jpg
+	lyxscale 60
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Graphics
+	filename sub/AverageLinkageCluster.jpg
+	lyxscale 60
+	scale 30
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename sub/singleLinkageCluster.jpg
+	lyxscale 60
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+We can see that both the dendogram and the cluster plot are different, since
+ we used different linkage types.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\series bold
+Average linkage
+\series default
+ - it is divided different then our eye would divide it, since the algorithm
+ looked for the minimal sum of cluster groups avreage distance( between
+ points inside the cluster).
+\end_layout
+
+\begin_layout Standard
+Also in the dendogram we can see the seperation into two groups were the
+ elements are more far from each other than in the single linkage.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Single linkage 
+\series default
+- here we see that since each time only the minimal distance from a point
+ in a cluster sets the tree and not the sum we get that all the outer group
+ is tagged together and the inner group tagged togther.
+\end_layout
+
+\begin_layout Standard
+Also in the dendogram we see that the points are more close togther.
+\end_layout
+
+\end_deeper
+\begin_layout Section*
+Programming part 2 - K-Means
+\end_layout
+
+\begin_layout Subsection*
+Random restarts
+\end_layout
+
+\begin_layout Enumerate
+Submitted.
+\end_layout
+
+\begin_layout Enumerate
+In the figure we can see that first the algorithm has a larger score (worst
+ in our case - we look for the minimal score), and after restartNum ~>=20
+ the score converges.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+I can explain it by the fact that restartNum is controlling the number of
+ times we start k-means with the same data but new centroids.
+\end_layout
+
+\begin_layout Standard
+As we know k-means might get stuck on a local minimal value so if we give
+ it more restarts (new centroids) it will have a better probability to reach
+ a better score
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ as restartNum grows the score converges.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename sub/restartNumVsBestScore.jpg
+	lyxscale 80
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Subsection*
+Subsampling
+\end_layout
+
+\begin_layout Enumerate
+submitted.
+\end_layout
+
+\begin_layout Enumerate
+In the figure we can see that first the algorithm has a larger score (worst
+ in our case - we look for the minimal score) , and as the percentage increase
+ the score converges.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+I can explain it by the fact that the lower the percentage is the smaller
+ the amount of data which is sent to K- means which causes to the range
+ to choose centeroids from to be biased towards the sampled data.
+\end_layout
+
+\begin_layout Standard
+But from 50% above we see that the best score stays almost the same, which
+ means that for this set of points ~50% is enough to estimate the centrodis
+ that will give us the best score.
+\end_layout
+
+\begin_layout Standard
+And as a result of sending only % from the data we get better running time.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename sub/percentageVsBestScore.jpg
+	lyxscale 80
+	scale 30
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename sub/percentageVsTime.jpg
+	lyxscale 80
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Subsection*
+Choosing K
+\end_layout
+
+\begin_layout Enumerate
+submitted.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Graphics
+	filename sub/silHist4.jpg
+	lyxscale 80
+	scale 30
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename sub/silHist8.jpg
+	lyxscale 80
+	scale 30
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename sub/silMean.jpg
+	lyxscale 80
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\series bold
+If s ~ <= 0
+\series default
+ it means that b
+\begin_inset Formula $_{i}$
+\end_inset
+
+<= a
+\begin_inset Formula $_{i}$
+\end_inset
+
+, which means or that the distance of the point from the second cluster
+ is closer (
+\begin_inset Formula $b_{i}$
+\end_inset
+
+< a
+\begin_inset Formula $_{i}$
+\end_inset
+
+ - bad results) either it is almost the same(a
+\begin_inset Formula $_{i}\tilde{=}\text{b}_{i}).$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+If s > 0 
+\series default
+it means that 
+\begin_inset Formula $b_{i}$
+\end_inset
+
+> a
+\begin_inset Formula $_{i}$
+\end_inset
+
+and as s grows 
+\series bold
+
+\begin_inset Formula $\rightarrow b_{i}>>a_{i}$
+\end_inset
+
+ 
+\series default
+.
+
+\series bold
+ 
+\end_layout
+
+\begin_layout Standard
+Therefore I would choose k=4 ,we can see that the S value at 4 is maximal,
+ which means that the distance between the each point and the cluster we
+ choose a
+\begin_inset Formula $_{i}$
+\end_inset
+
+ has the most difference to the next closer cluster group b
+\begin_inset Formula $_{i}$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\end_body
+\end_document
