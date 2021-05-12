@@ -4,4 +4,4 @@ The developments in genomic sequencing tools and especially single cell RNA-seq 
 
 > Satija, Rahul, et al. "Spatial reconstruction of single-cell gene expression data." Nature biotechnology 33.5 (2015): 495-502.‏
 
-![Clustering of Cells Using Complete Gene Expression Profiles](Clustering of Cells Using Complete Gene Expression Profiles.docx)
+![Clustering_of_Cells_Using_Complete_Gene_Expression_Profiles](Clustering_of_Cells_Using_Complete_Gene_Expression_Profiles.docx)
