@@ -18,7 +18,7 @@ but in a relatively big cloud.
 
 ## Swiss Roll
 
-![Manifold%20Dimensionality%20Reduction%20e3ba53a809ac403089674766688cf445/Untitled.png](Manifold%20Dimensionality%20Reduction%20e3ba53a809ac403089674766688cf445/Untitled.png)
+![swiss_roll](swiss_roll.png)
 
 Figure 2:
  In manifold learning we are recovering a global shape from local diffrence
@@ -36,15 +36,15 @@ satisfying
 
 ## Faces
 
+![faces_MDS](faces_MDS.png)
+
 Figure 3
 
-![Manifold%20Dimensionality%20Reduction%20e3ba53a809ac403089674766688cf445/Untitled%201.png](Manifold%20Dimensionality%20Reduction%20e3ba53a809ac403089674766688cf445/Untitled%201.png)
+![faces_LLE](faces_LLE.png)
 
 Figure 4
 
-![Manifold%20Dimensionality%20Reduction%20e3ba53a809ac403089674766688cf445/Untitled%202.png](Manifold%20Dimensionality%20Reduction%20e3ba53a809ac403089674766688cf445/Untitled%202.png)
-
-![Manifold%20Dimensionality%20Reduction%20e3ba53a809ac403089674766688cf445/Untitled%203.png](Manifold%20Dimensionality%20Reduction%20e3ba53a809ac403089674766688cf445/Untitled%203.png)
+![faces_DiffMap](faces_DiffMap.png)
 
 Figure 5
 
@@ -58,4 +58,4 @@ We can see the knee we are getting, rst when we have less noise at the
 2D and as the noise grows it gets much more tough to
 MDS algorithm to get the actual dimension of the embedded data.
 
-![Manifold%20Dimensionality%20Reduction%20e3ba53a809ac403089674766688cf445/Untitled%204.png](Manifold%20Dimensionality%20Reduction%20e3ba53a809ac403089674766688cf445/Untitled%204.png)
+![Scree_Plot](Scree_Plot.png)
