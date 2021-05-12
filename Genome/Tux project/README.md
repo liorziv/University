@@ -24,7 +24,7 @@ We now had an order of magnitude more genes than cells, and so to be able to det
 
 We decided to take the top 400 components, which explained ~91% of the variance in our data.
 
-![Clustering%20of%20Cells%20Using%20Complete%20Gene%20Expression%20c2266146d1374d5baf9d9b81c73f516c/Untitled.png](Clustering%20of%20Cells%20Using%20Complete%20Gene%20Expression%20c2266146d1374d5baf9d9b81c73f516c/Untitled.png)
+![graph_1](graph_1.png)
 
 Figure 1: Components explained variance. The graph shows the additive effect component number on the explained variance in the data. Above 400 components the slope of the function decreases towards plateau.
 
@@ -32,13 +32,13 @@ Figure 1: Components explained variance. The graph shows the additive effect com
 
 We continued to cluster the data, using the components we chose in the previous step. By applying the necessary normalization (see methods) and k-means clustering, we have successfully separated the cells into 8 distinct groups (Figure 2). To measure whether our
 
-![Clustering%20of%20Cells%20Using%20Complete%20Gene%20Expression%20c2266146d1374d5baf9d9b81c73f516c/Untitled%201.png](Clustering%20of%20Cells%20Using%20Complete%20Gene%20Expression%20c2266146d1374d5baf9d9b81c73f516c/Untitled%201.png)
+![K-means](K-means.png)
 
 Figure 2: k-means clustering. The rows are components representing gene expression, the columns are zebrafish cells. The PCA vectors are normalized to values between 1 to -1, and the cells are sorted to match the clusters (rightmost bar).
 
 results are meaningful, we applied a statistical test for each landmark gene out of the 47 used in Satija et al.. For each landmark gene we asked whether the expression levels within a cluster are of the same distribution of the background (expression in the rest of the clusters). By applying Wilcoxon rank sum test with a p-value of 0.05 we got that ~51% of the landmark genes are mostly unique to one or two clusters (Figure 3). This shows that our results are somewhat related to the literature and are not completely random.
 
-![Clustering%20of%20Cells%20Using%20Complete%20Gene%20Expression%20c2266146d1374d5baf9d9b81c73f516c/Untitled%202.png](Clustering%20of%20Cells%20Using%20Complete%20Gene%20Expression%20c2266146d1374d5baf9d9b81c73f516c/Untitled%202.png)
+![landmark_dist](landmark_dist.png)
 
 Figure 3: Distribution of landmark gene in clusters. The x-axis is the number of clusters where a landmark gene was found to originate from a distribution different from the background. The y-axis is the amount of landmark genes who are significantly over- or under- expressed in x clusters.
 
